@@ -53,6 +53,7 @@ export class WebService{
     }
 
     getUser(){
+        console.log(this.auth.tokenHeader);
         var result = this.http.get(this.BASE_URL + '/users/me', this.auth.tokenHeader )
             .map(res => res.json()
         );

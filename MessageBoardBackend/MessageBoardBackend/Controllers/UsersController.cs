@@ -53,7 +53,7 @@ namespace MessageBoardBackend.Controllers
             //get the userid
             //var test = Ok(GetSecureUser());
             //the HttpContext doers not send auth token.
-
+            var test = HttpContext.User;
             return Ok(GetSecureUser());
         }
 
@@ -74,6 +74,7 @@ namespace MessageBoardBackend.Controllers
         private User GetSecureUser()
         {
             var id = HttpContext.User.Claims.First().Value;
+            
             var user = context.Users.SingleOrDefault(u => u.Id == id);
             return user;
         }

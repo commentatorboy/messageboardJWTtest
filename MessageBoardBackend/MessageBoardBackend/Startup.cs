@@ -33,68 +33,61 @@ namespace MessageBoardBackend
 
 
 
-            services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase("APIDBTEST"));
+            // Add framework services.
 
-            services.AddCors(options => options.AddPolicy("Cors",
-                builder =>
-                {
-                    builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
+            services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase());
 
-                }
-                ));
+            services.AddCors(options => options.AddPolicy("Cors", builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this is the secret phrase"));
-            
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                
-            }).AddJwtBearer(cfg => {
+            }).AddJwtBearer(cfg =>
+            {
                 cfg.RequireHttpsMetadata = false;
-                cfg.SaveToken = false;
+                cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters()
                 {
                     IssuerSigningKey = signingKey,
                     ValidateAudience = false,
                     ValidateIssuer = false,
-                    RequireExpirationTime = false,
                     ValidateLifetime = false,
-                    ValidateIssuerSigningKey = false
+                    ValidateIssuerSigningKey = true
                 };
             });
-            
+
             services.AddMvc();
 
 
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            if (env.IsDevelopment())
-            {
-
-            
-            }
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            app.UseCors("Cors");
-            app.UseDeveloperExceptionPage();
-            app.UseMvc();
+
             app.UseAuthentication();
 
-
-
+            app.UseCors("Cors");
+            app.UseMvc();
 
             SeedData.Initialize(app.ApplicationServices);
 
-
         }
+
+
+
 
     }
 }
