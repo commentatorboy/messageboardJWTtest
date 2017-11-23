@@ -12,7 +12,5 @@ namespace MessageBoardBackend
 
         public DbSet<Models.Message> Messages { get; set; }
         public DbSet<Models.User> Users { get; set; }
-
-
     }
 }
