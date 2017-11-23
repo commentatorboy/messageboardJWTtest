@@ -50,10 +50,6 @@ namespace MessageBoardBackend.Controllers
         {
             //middleware uses something with (watch chapter 47) and look into nameidentifier, this
             //also this only works because the first one is the tokenidentifer. This should be changed accordingly
-            //get the userid
-            //var test = Ok(GetSecureUser());
-            //the HttpContext doers not send auth token.
-            var test = HttpContext.User;
             return Ok(GetSecureUser());
         }
 

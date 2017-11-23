@@ -25,6 +25,7 @@ export class RegisterComponent {
 
     onSubmit(){
         console.log(this.form.errors);
+        console.log(this.form.value);
         this.auth.register(this.form.value);
     }
 

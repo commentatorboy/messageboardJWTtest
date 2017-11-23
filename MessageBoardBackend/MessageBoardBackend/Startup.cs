@@ -35,7 +35,11 @@ namespace MessageBoardBackend
 
             // Add framework services.
 
-            services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase());
+            /*services.AddDbContext<ApiContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Recuit")));
+                    */
+            services.AddDbContext<ApiContext>(options =>
+                                options.UseInMemoryDatabase("recruit"));
 
             services.AddCors(options => options.AddPolicy("Cors", builder =>
             {
