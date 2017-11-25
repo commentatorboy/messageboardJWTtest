@@ -14,32 +14,77 @@ namespace MessageBoardBackend.Data
             using (var context = new ApiContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApiContext>>()))
             {
-                // Look for any movies.
-                if (context.Messages.Any())
-                {
-                    return;   // DB has been seeded
-                }
+
                 if (context.Users.Any())
                 {
                     return;   // DB has been seeded
                 }
 
 
-                context.Messages.Add(
-                    new Message { Owner = "John", Text = "hello" }
-                );
 
-                context.Messages.Add(
-                    new Message { Owner = "tim", Text = "hi" }
-                );
+                context.Companies.Add(new Company
+                {
+                    CVR = "",
+                    Id = "",
+                    Name = "",
+                    TypeOfCompany = ""
+                });
 
+                context.Tags.Add(new Tag
+                {
+                    Descriptipon = "",
+                    Title = "",
+                    Id = "",
+                });
+
+                //for the profile
                 context.Users.Add(new User
                 {
-                    Email = "a",
-                    FirstName = "tikm",
+                    Email = "company",
+                    FirstName = "tim",
+                    LastName = "timm",
                     Password = "a",
-                    Id = "1"
+                    Id = "1",
+                    MyRole = Role.Profile
                 });
+
+                //for the company
+                context.Users.Add(new User
+                {
+                    Email = "profile",
+                    FirstName = "hen",
+                    Password = "a",
+                    Id = "2",
+                    MyRole = Role.Company
+                });
+
+                //for the profile
+                context.JobApplications.Add(new JobApplication
+                {
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "",
+                    Description = "",
+                    Id = "",
+                    Tags = context.Tags.First(),
+                    Title = "",
+                    UpdatedAt = DateTime.Now,
+                    User = context.Users.First()
+                });
+
+
+                context.JobPosts.Add(new JobPost
+                {
+                    CreatedAt = "",
+                    CreatedBy = "",
+                    Description = "",
+                    Id = "",
+                    Tags = context.Tags.First(),
+                    Title = "",
+                    UpdatedAt = "",
+                    User = context.Users.Last()
+                    
+                });
+
                 context.SaveChanges();
 
             }

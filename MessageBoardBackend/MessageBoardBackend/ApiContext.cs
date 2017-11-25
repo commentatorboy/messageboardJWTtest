@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MessageBoardBackend.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,22 +11,23 @@ namespace MessageBoardBackend
     {
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
-        public DbSet<Models.Message> Messages { get; set; }
-        public DbSet<Models.User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<JobApplication> JobApplications { get; set; }
+        public DbSet<JobPost> JobPosts { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Course>().ToTable("Course");
-            modelBuilder.Entity<Enrollment>().ToTable("Enrollment");
-            modelBuilder.Entity<Student>().ToTable("Student");
-            modelBuilder.Entity<Department>().ToTable("Department");
-            modelBuilder.Entity<Instructor>().ToTable("Instructor");
-            modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignment");
-            modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignment");
+            modelBuilder.Entity<User>().HasOne(u => u.Profile);
+            modelBuilder.Entity<User>().HasOne(u => u.Company);
 
             modelBuilder.Entity<CourseAssignment>()
                 .HasKey(c => new { c.CourseID, c.InstructorID });
+            model
         }
 
     }
