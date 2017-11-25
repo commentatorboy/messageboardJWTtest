@@ -11,6 +11,7 @@ namespace MessageBoardBackend
     {
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
+<<<<<<< HEAD
         public DbSet<User> Users { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
@@ -25,10 +26,8 @@ namespace MessageBoardBackend
             modelBuilder.Entity<User>().HasOne(u => u.Profile);
             modelBuilder.Entity<User>().HasOne(u => u.Company);
 
-            modelBuilder.Entity<CourseAssignment>()
+            /*modelBuilder.Entity<CourseAssignment>()
                 .HasKey(c => new { c.CourseID, c.InstructorID });
-            model
+            */
         }
-
-    }
 }
