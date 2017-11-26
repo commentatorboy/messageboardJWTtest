@@ -13,5 +13,8 @@ namespace MessageBoardBackend.Models
         public string LastName { get; set; }
         public string Age { get; set; }
         public string Gender { get; set; }
+
+        public virtual User User { get; set; }
+
     }
 }

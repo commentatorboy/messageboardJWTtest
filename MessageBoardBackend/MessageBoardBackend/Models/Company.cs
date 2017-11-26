@@ -11,5 +11,9 @@ namespace MessageBoardBackend.Models
         public string Name { get; set; }
         public string TypeOfCompany { get; set; }
         public string CVR { get; set; }
+
+
+        public virtual User User { get; set; }
+
     }
 }

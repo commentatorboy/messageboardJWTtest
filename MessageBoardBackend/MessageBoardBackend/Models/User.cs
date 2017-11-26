@@ -18,5 +18,9 @@ namespace MessageBoardBackend.Models
         public virtual Profile Profile { get; set; }
         public virtual Company Company { get; set; }
 
+        public virtual List<JobApplication> JobApplications { get; set; }
+        public virtual List<JobPost> JobPosts { get; set; }
+
+
     }
 }
