@@ -12,67 +12,40 @@ using MessageBoardBackend.Models;
 namespace MessageBoardBackend.Controllers
 {
 
-    public class EditProfileData
+    public class EditCompanyData
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
     }
+
     [Produces("application/json")]
-    [Route("api/users")]
-    public class UsersController : Controller
+    [Route("api/companies")]
+    public class CompaniesController : Controller
     {
 
         readonly ApiContext context;
 
-        public UsersController(ApiContext context)
+        public CompaniesController(ApiContext context)
         {
             this.context = context;
         }
 
-        //from the url
+        //from the url only a company is allowed to get information about itself
         [HttpGet("{id}")]
         public ActionResult Get(string id)
         {
 
-            var user = context.Users.SingleOrDefault(u => u.Id == id);
-            if (user == null)
+            var company = context.Companies.SingleOrDefault(u => u.Id == id);
+            if (company == null)
             {
                 return NotFound("email or password incorrect");
             }
-            return Ok(user);
+            return Ok(company);
 
         }
+        
 
-        [Authorize]
-        [HttpGet("me")]
-        public ActionResult Get()
-        {
-            //middleware uses something with (watch chapter 47) and look into nameidentifier, this
-            //also this only works because the first one is the tokenidentifer. This should be changed accordingly
-            return Ok(GetSecureUser());
-        }
-
-        [Authorize]
-        [HttpPost("me")]
-        public ActionResult Post([FromBody] EditProfileData profileData)
-        {
-            //middleware uses something with (watch chapter 47) and look into nameidentifier, this
-            //also this only works because the first one is the tokenidentifer. This should be changed accordingly
-            //get the userid
-            var user = GetSecureUser();
-            user.FirstName = profileData.FirstName ?? user.FirstName;
-            user.LastName = profileData.LastName ?? user.LastName;
-            context.SaveChanges();
-            return Ok(user);
-        }
-
-        private User GetSecureUser()
-        {
-            var id = HttpContext.User.Claims.First().Value;
-            
-            var user = context.Users.SingleOrDefault(u => u.Id == id);
-            return user;
-        }
+     
     }
 }

@@ -65,10 +65,10 @@ namespace MessageBoardBackend.Data
                     CreatedBy = "",
                     Description = "",
                     Id = "",
-                    Tags = context.Tags.First(),
+                    Tags = context.Tags.FirstOrDefault(),
                     Title = "",
                     UpdatedAt = DateTime.Now,
-                    User = context.Users.First()
+                    User = context.Users.FirstOrDefault()
                 });
 
 
@@ -78,10 +78,10 @@ namespace MessageBoardBackend.Data
                     CreatedBy = "",
                     Description = "",
                     Id = "",
-                    Tags = context.Tags.First(),
+                    Tags = context.Tags.FirstOrDefault(),
                     Title = "",
                     UpdatedAt = "",
-                    User = context.Users.Last()
+                    User = context.Users.FirstOrDefault()
                     
                 });
 

@@ -32,14 +32,10 @@ namespace MessageBoardBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             // Add framework services.
 
-            /*services.AddDbContext<ApiContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Recuit")));
-                    */
-
-            services.AddDbContext<ApiContext>(options =>
-                                options.UseInMemoryDatabase("recruit"));
+            services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase("recruit"));
 
             services.AddCors(options => options.AddPolicy("Cors", builder =>
             {
@@ -71,8 +67,6 @@ namespace MessageBoardBackend
 
             services.AddMvc();
 
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,27 +89,27 @@ namespace MessageBoardBackend
 
     }
 
-    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApiContext>
-    {
-        public ApiContext CreateDbContext(string[] args)
-        {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+    //public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApiContext>
+    //{
+    //    public ApiContext CreateDbContext(string[] args)
+    //    {
+    //        IConfigurationRoot configuration = new ConfigurationBuilder()
+    //            .SetBasePath(Directory.GetCurrentDirectory())
+    //            .AddJsonFile("appsettings.json")
+    //            .Build();
 
-            var builder = new DbContextOptionsBuilder<ApiContext>();
+    //        var builder = new DbContextOptionsBuilder<ApiContext>();
 
-            // https://codingblast.com/entityframework-core-idesigntimedbcontextfactory/
-            var hostname = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "localhost";
-            var password = Environment.GetEnvironmentVariable("SQLSERVER_SA_PASSWORD") ?? "kode123@";
-            var connString = $"Data Source={hostname};Initial Catalog=messageboard;User ID=sa;Password={password};";
+    //        // https://codingblast.com/entityframework-core-idesigntimedbcontextfactory/
+    //        var hostname = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "localhost";
+    //        var password = Environment.GetEnvironmentVariable("SQLSERVER_SA_PASSWORD") ?? "kode123@";
+    //        var connString = $"Data Source={hostname};Initial Catalog=messageboard;User ID=sa;Password={password};";
 
-            var connectionString = configuration.GetConnectionString(connString);
+    //        var connectionString = configuration.GetConnectionString(connString);
 
-            builder.UseSqlServer(connString);
+    //        builder.UseSqlServer(connString);
 
-            return new ApiContext(builder.Options);
-        }
-    }
+    //        return new ApiContext(builder.Options);
+    //    }
+    //}
 }

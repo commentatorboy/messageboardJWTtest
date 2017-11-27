@@ -50,6 +50,9 @@ namespace MessageBoardBackend.Controllers
         {
             //middleware uses something with (watch chapter 47) and look into nameidentifier, this
             //also this only works because the first one is the tokenidentifer. This should be changed accordingly
+            Microsoft.Extensions.Primitives.StringValues authorizationToken = "";
+            var con = HttpContext.Request.Headers.TryGetValue("Authorization", out authorizationToken);
+
             return Ok(GetSecureUser());
         }
 

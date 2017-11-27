@@ -12,20 +12,15 @@ using MessageBoardBackend.Models;
 namespace MessageBoardBackend.Controllers
 {
 
-    public class EditProfileData
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-
-    }
+    
     [Produces("application/json")]
-    [Route("api/users")]
-    public class UsersController : Controller
+    [Route("api/jobapplications")]
+    public class JobApplicationsController : Controller
     {
 
         readonly ApiContext context;
 
-        public UsersController(ApiContext context)
+        public JobApplicationsController(ApiContext context)
         {
             this.context = context;
         }
@@ -61,8 +56,6 @@ namespace MessageBoardBackend.Controllers
             //also this only works because the first one is the tokenidentifer. This should be changed accordingly
             //get the userid
             var user = GetSecureUser();
-            user.FirstName = profileData.FirstName ?? user.FirstName;
-            user.LastName = profileData.LastName ?? user.LastName;
             context.SaveChanges();
             return Ok(user);
         }

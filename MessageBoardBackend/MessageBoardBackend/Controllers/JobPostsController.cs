@@ -12,20 +12,15 @@ using MessageBoardBackend.Models;
 namespace MessageBoardBackend.Controllers
 {
 
-    public class EditProfileData
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
 
-    }
     [Produces("application/json")]
-    [Route("api/users")]
-    public class UsersController : Controller
+    [Route("api/jobpost")]
+    public class JobPostsController : Controller
     {
 
         readonly ApiContext context;
 
-        public UsersController(ApiContext context)
+        public JobPostsController(ApiContext context)
         {
             this.context = context;
         }
